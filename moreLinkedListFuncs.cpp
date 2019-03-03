@@ -4,34 +4,31 @@
 
 
 
-void addIntToEndOfList(LinkedList *list, int value) {
+void addIntToEndOfList(LinkedList *list, int value) 
+{
   assert(list!=NULL); // if list is NULL, we can do nothing.
 
-  Node *p; // temporary pointer
-
-  // TODO:
   // (1) Allocate a new node.  p will point to it.
-
-  p = NULL; // THIS IS PLACE-HOLDER LINE OF CODE.  DELETE IT AND REPLACE IT.
-
+  Node *p = new Node;
   // (2) Set p's data field to the value passed in
-  
+  p->data = value; 
   // (3) Set p's next field to NULL
+  p->next = NULL;
 
-
-  if (list->head == NULL) {
-
+  if (list->head == NULL) 
+  {
     // (4) Make both head and tail of this list point to p
-    
-    
-  } else {
+    list->head = p;
+    list->tail = p;
+  } 
 
+  else
+  {
     // Add p at the end of the list.   
-
     // (5) The current node at the tail? Make it point to p instead of NULL
-
+    list->tail->next = p;
     // (6) Make the tail of the list be p now.
-
+    list->tail = p;
   }
 
 }
@@ -39,18 +36,22 @@ void addIntToEndOfList(LinkedList *list, int value) {
 void addIntToStartOfList(LinkedList *list, int value) {
   assert(list!=NULL); // if list is NULL, we can do nothing.
 
-  // Add code for this.  
-  // HINTS:
-  //  You will need to allocate a new Node.
-  //  You will need two cases just as in addIntToEndOfList,
-  //  one for when list->head is NULL and another for when it is not.
-  // You need to consider how to make sure that list->head changes to point to the new node
-  // that you allocated.  And you will need to make sure that when you are done, 
-  // that if the new node is now the ONLY thing on the list, that tail points to it also,
-  // and that the new node is pointing to NULL.
-  // Otherwise, you'll need to be sure that 
-  //   if it is the only node on the list, or to the "old" head if there 
+  Node *p = new Node; // allocate a new node, p points to it
+  p->data = value;   //  set p's data field to the value passed in
+  p->next = NULL;   //   set p's next field to NULL
 
+  if (list->head == NULL) 
+  {
+	//head and tail of the list point to p
+  	list->head = p;
+	list->tail = p;
+  }
+  
+  else
+  {
+	p->next = list->head;
+	list->head = p;
+  }
 }
 
 // list: ptr to a linked list of Node (each with int data, and Node * next)
@@ -67,10 +68,14 @@ Node * pointerToMax(LinkedList *list) {
   assert(list!=NULL);
   assert(list->head != NULL);
 
-  // TODO: Insert code here to calculate and return
-  //   value of pointer to max element (first one if ties.)
-
-  return NULL; // STUB!  Replace this line with correct code
+  Node *max;
+  max = list->head;
+  for (Node *n = list->head; n != NULL; n = n->next)
+  {
+	  if (n->data > max->data)
+		max = n;
+  }
+  return max;
 }
 
 // list: ptr to a linked list of Node (each with int data, and Node * next)
@@ -88,13 +93,15 @@ Node * pointerToMin(LinkedList *list) {
 
   assert(list!=NULL);
   assert(list->head != NULL);
-
-  // TODO: Insert code here to calculate and return
-  //   value of pointer to min element 
-  //   (first one such value that occurs if there are ties.)
-
-  return NULL; // STUB!  Replace this line with correct code
-
+  
+  Node *min;
+  min = list->head;
+  for (Node *n = list->head; n != NULL; n = n->next)
+  {
+	  if (n->data < min->data)
+		min = n;
+  }
+  return min;
 }
 
 // list: ptr to a linked list of Node (each with int data, and Node * next)
@@ -110,10 +117,15 @@ int largestValue(LinkedList *list) {
   assert(list!=NULL);
   assert(list->head != NULL);
 
-  // TODO: Insert code here to calculate and return
-  //   largest value in list (which may not be unique).
-
-  return -42; // STUB!  Replace this line with correct code
+  int largestVal = list->head->data;
+  for (Node *n = list->head; n != NULL; n = n->next)
+  {
+  	if (n->data > largestVal)
+	{
+		largestVal = n->data;
+	}
+  }
+  return largestVal;
 
 }
 
@@ -129,11 +141,15 @@ int smallestValue(LinkedList *list) {
   assert(list!=NULL);
   assert(list->head != NULL);
 
-  // TODO: Insert code here to calculate and return
-  //   smallest value in list (which may not be unique).
-
-  return -42; // STUB!  Replace this line with correct code
-
+  int smallestVal = list->tail->data;
+  for (Node *n = list->head; n != NULL; n = n->next)
+  {
+	  if (n->data < smallestVal)
+	  {
+		  smallestVal = n->data;
+	  }
+  }
+  return smallestVal;
 }
 
 // list: ptr to a linked list of Node (each with int data, and Node * next)
@@ -148,10 +164,19 @@ int sum(LinkedList * list) {
 
   assert(list!=NULL);
 
-  // TODO: Insert code here to calculate and return
-  //   sum of all values in list (0 if there are none).
-
-  return -42; // STUB!  Replace this line with correct code
-
+  int sum = 0;
+  if (list->head == NULL)
+  {
+	  return 0;
+  }
+  
+  else
+  {
+	  for (Node *n = list->head; n != NULL; n = n->next)
+	  {
+		  sum = sum + n->data;
+	  }
+  }
+  return sum;
 }
 
