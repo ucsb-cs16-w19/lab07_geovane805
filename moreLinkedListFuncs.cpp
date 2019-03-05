@@ -26,9 +26,15 @@ void addIntToEndOfList(LinkedList *list, int value)
   {
     // Add p at the end of the list.   
     // (5) The current node at the tail? Make it point to p instead of NULL
-    list->tail->next = p;
+
+    Node* temp = new Node; //create a new temporary node
+    temp = list->head; //temp points to the start of the linked list
+    while(temp->next != NULL) //move through the list until we reach the end
+    {
+	    temp = temp->next;
+    }// when the loop breaks, we are at the end of the linked list.
     // (6) Make the tail of the list be p now.
-    list->tail = p;
+    temp->next = p;
   }
 
 }
@@ -49,8 +55,8 @@ void addIntToStartOfList(LinkedList *list, int value) {
   
   else
   {
-	p->next = list->head;
-	list->head = p;
+	p->next = list->head; //sets link of p to the head address
+	list->head = p; 
   }
 }
 
@@ -86,7 +92,8 @@ Node * pointerToMax(LinkedList *list) {
 //  earlier in the list, i.e. closer to the head
 
 
-Node * pointerToMin(LinkedList *list) {
+Node * pointerToMin(LinkedList *list) 
+{
 
   // Code may assume that these assertions are true;
   //  so does not need to do error checking for these conditions.
@@ -109,7 +116,8 @@ Node * pointerToMin(LinkedList *list) {
 // This value may be unique, or may occur more than once
 // You may assume list has at least one element
 
-int largestValue(LinkedList *list) {
+int largestValue(LinkedList *list) 
+{
 
   // Code may assume that these assertions are true;
   //  so does not need to do error checking for these conditions.
@@ -134,7 +142,8 @@ int largestValue(LinkedList *list) {
 // This value may be unique, or may occur more than once
 // You may assume list has at least one element
 
-int smallestValue(LinkedList *list) {
+int smallestValue(LinkedList *list) 
+{
   // Code may assume that these assertions are true;
   //  so does not need to do error checking for these conditions.
 
@@ -158,7 +167,8 @@ int smallestValue(LinkedList *list) {
 // However, the list may be empty (i.e. list->head may be NULL)
 //  in which case your code should return 0.
 
-int sum(LinkedList * list) {
+int sum(LinkedList * list) 
+{
   // Code may assume that these assertions are true;
   //  so does not need to do error checking for these conditions.
 
